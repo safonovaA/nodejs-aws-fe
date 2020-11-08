@@ -55,7 +55,35 @@ const Form = (props: FormikProps<FormikValues>) => {
             fullWidth
             autoComplete="off"
             multiline
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Field
+            component={TextField}
+            name="author"
+            label="Author"
+            fullWidth
+            autoComplete="off"
             required
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Field
+            component={TextField}
+            name="published"
+            label="Published"
+            fullWidth
+            autoComplete="off"
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Field
+            component={TextField}
+            name="img"
+            label="Link to image"
+            fullWidth
+            autoComplete="off"
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -109,7 +137,7 @@ export default function PageProductForm() {
   const onSubmit = (values: FormikValues) => {
     const formattedValues = ProductSchema.cast(values);
     const productToSave = id ? {...ProductSchema.cast(formattedValues), id} : formattedValues;
-    axios.put(`${API_PATHS.bff}/product`, productToSave)
+    axios.post(`${API_PATHS.bff}/products`, productToSave)
       .then(() => history.push('/admin/products'));
   };
 
